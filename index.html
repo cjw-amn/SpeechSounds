@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" class="dir-a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yapla — Speech &amp; Language Resources</title>
+  <meta name="description" content="Playful, printable speech and language therapy resources for therapists, teachers and families." />
+  <link rel="stylesheet" href="assets/css/brand-tokens.css" />
+  <link rel="stylesheet" href="assets/css/home.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='40' rx='14' fill='%23FF5D5D'/%3E%3Crect x='15' y='14' width='14' height='24' rx='4.5' fill='%23fff'/%3E%3Crect x='34' y='14' width='14' height='24' rx='4.5' fill='%23FFC53D'/%3E%3C/svg%3E" />
+</head>
+<body data-art="emoji" data-accents="rainbow">
+  <div class="container">
+
+    <!-- ===== HEADER ===== -->
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <svg class="mark" width="46" height="46" viewBox="0 0 64 64" aria-hidden="true">
+          <path class="mk-bubble" d="M16 45 L16 57 L29 45 Z"></path>
+          <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+          <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+          <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+        </svg>
+        <div class="brand-text">
+          <div class="title">Yap<span class="pl">la</span></div>
+          <div class="sub">Speech &amp; Language Resources</div>
+        </div>
+      </a>
+      <nav class="site-nav">
+        <a class="nav-btn active" href="index.html">Library</a>
+        <a class="nav-btn" href="#picture-sets">Picture Cards</a>
+        <a class="nav-btn" href="#games">Games</a>
+        <a class="nav-btn" href="#about">About</a>
+      </nav>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+      <div>
+        <h1>Playful printables for every <span class="accent">sound, word&nbsp;and&nbsp;sentence</span> you teach.</h1>
+        <p>Therapy-ready flashcards, picture sets and print-and-play games — organised by target, ready in one click. Built for speech therapists, classrooms and kitchen tables alike.</p>
+        <div class="hero-stats" id="heroStats"></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="hero-card c1"><span class="emj">🐱</span><span class="w">cat</span></div>
+        <div class="hero-card c2"><span class="emj">🐻</span><span class="w">bear</span></div>
+        <div class="hero-card c3"><span class="emj">🦆</span><span class="w">duck</span></div>
+      </div>
+    </section>
+
+    <!-- ===== FILTERS + LIBRARY GRID (rendered by app.js) ===== -->
+    <div class="filters" id="filters">
+      <button class="filter-chip active" data-cat="all">All</button>
+      <div class="search">
+        <input id="search" type="search" placeholder="Search targets or words…" aria-label="Search" />
+      </div>
+    </div>
+
+    <main id="grid" class="contrast-grid" aria-live="polite"></main>
+
+    <!-- ===== PICTURE CARD SETS ===== -->
+    <section id="picture-sets" class="sec-block">
+      <div class="sec-bar">
+        <h2><span class="sicon">📸</span>Picture Card Sets</h2>
+        <span class="sub">Single-sound printable sheets — no minimal pair needed</span>
+      </div>
+      <div class="contrast-grid">
+
+        <a class="pic-card" style="--cc:var(--b1)" href="initial-k-cards.html">
+          <div class="row"><span class="cat">Initial consonant</span><span class="count">18 cards</span></div>
+          <h3>Initial K</h3>
+          <div class="pic-icon"><span class="emj" style="font-size:54px">🔑</span></div>
+          <div class="desc">Word-initial /k/ — kick, kite, cat, cake. Great for velar fronting.</div>
+          <div class="pic-icons">
+            <span class="pic-chip">kite</span><span class="pic-chip">king</span><span class="pic-chip">cake</span>
+          </div>
+        </a>
+
+        <a class="pic-card" style="--cc:var(--b4)" href="initial-p-cards.html">
+          <div class="row"><span class="cat">Initial consonant</span><span class="count">18 cards</span></div>
+          <h3>Initial P</h3>
+          <div class="pic-icon"><span class="emj" style="font-size:54px">🐷</span></div>
+          <div class="desc">A popping word-initial /p/ — pig, pear, panda. Stopping &amp; voicing practice.</div>
+          <div class="pic-icons">
+            <span class="pic-chip">pig</span><span class="pic-chip">pear</span><span class="pic-chip">panda</span>
+          </div>
+        </a>
+
+        <a class="pic-card" style="--cc:var(--b5)" href="final-t-cards.html">
+          <div class="row"><span class="cat">Final consonant</span><span class="count">18 cards</span></div>
+          <h3>Words ending in T</h3>
+          <div class="pic-icon"><span class="emj" style="font-size:54px">🐱</span></div>
+          <div class="desc">Crisp final /t/ — cat, hat, goat, boat. Emphasise the closing sound.</div>
+          <div class="pic-icons">
+            <span class="pic-chip">cat</span><span class="pic-chip">goat</span><span class="pic-chip">boat</span>
+          </div>
+        </a>
+
+        <a class="pic-card" style="--cc:var(--b2)" href="final-ts-cards.html">
+          <div class="row"><span class="cat">Final cluster</span><span class="count">18 cards</span></div>
+          <h3>Words ending in TS</h3>
+          <div class="pic-icon"><span class="emj" style="font-size:54px">⛵</span></div>
+          <div class="desc">The snappy /ts/ cluster — cats, hats, goats, boats. Plurals &amp; verbs.</div>
+          <div class="pic-icons">
+            <span class="pic-chip">cats</span><span class="pic-chip">goats</span><span class="pic-chip">ants</span>
+          </div>
+        </a>
+
+        <a class="pic-card" style="--cc:var(--b3)" href="vowel-cards.html">
+          <div class="row"><span class="cat">Vowels</span><span class="count">18 cards</span></div>
+          <h3>Short O &amp; Short U</h3>
+          <div class="pic-icon"><span class="emj" style="font-size:54px">☕</span></div>
+          <div class="desc">Short O (as in <em>sock</em>) and short U (as in <em>cup</em>). Two printable sheets.</div>
+          <div class="pic-icons">
+            <span class="pic-chip">sock</span><span class="pic-chip">cup</span><span class="pic-chip">bug</span>
+          </div>
+        </a>
+
+        <a class="pic-card" style="--cc:var(--b1)" href="air-cards.html">
+          <div class="row"><span class="cat">Vowel sound</span><span class="count">18 cards</span></div>
+          <h3>The “air” Sound</h3>
+          <div class="pic-icon"><span class="emj" style="font-size:54px">🐻</span></div>
+          <div class="desc">The “air” vowel (/eə/) — bear, pear, chair, air. Spelled <em>air</em>, <em>are</em>, <em>ear</em>.</div>
+          <div class="pic-icons">
+            <span class="pic-chip">bear</span><span class="pic-chip">chair</span><span class="pic-chip">pair</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ===== GAMES ===== -->
+    <section id="games" class="sec-block">
+      <div class="sec-bar">
+        <h2><span class="sicon">🎲</span>Printable Games</h2>
+        <span class="sub">Print-and-play boards — say the target word on every turn</span>
+      </div>
+      <div class="contrast-grid">
+
+        <a class="game-card" style="--cc:var(--b5)" href="four-in-a-row-p.html">
+          <div class="game-top">
+            <span class="game-icon">🎯</span>
+            <div><div class="game-focus">Game · Initial P</div><h3>Four in a Row — P</h3></div>
+          </div>
+          <div class="desc">Connect-4 style. Say the /p/ word before placing a counter — first to four wins.</div>
+          <div class="game-meta"><span class="m">2 players</span><span class="m">7 × 6 board</span><span class="m">one-page print</span></div>
+        </a>
+
+        <a class="game-card" style="--cc:var(--b2)" href="four-in-a-row-k.html">
+          <div class="game-top">
+            <span class="game-icon">🎯</span>
+            <div><div class="game-focus">Game · Initial K</div><h3>Four in a Row — K</h3></div>
+          </div>
+          <div class="desc">Connect-4 style. Say the /k/ word before placing a counter — first to four wins.</div>
+          <div class="game-meta"><span class="m">2 players</span><span class="m">7 × 6 board</span><span class="m">one-page print</span></div>
+        </a>
+
+        <a class="game-card" style="--cc:var(--b1)" href="rocket-race-p.html">
+          <div class="game-top">
+            <span class="game-icon">🚀</span>
+            <div><div class="game-focus">Game · Initial P</div><h3>Rocket Race — P</h3></div>
+          </div>
+          <div class="desc">Roll-and-move space board. Move your rocket, say the /p/ word — first to Planet P wins.</div>
+          <div class="game-meta"><span class="m">2–8 players</span><span class="m">40-space path</span><span class="m">minimal ink</span></div>
+        </a>
+
+        <a class="game-card" style="--cc:var(--b4)" href="rocket-race-p-initial-final.html">
+          <div class="game-top">
+            <span class="game-icon">🚀</span>
+            <div><div class="game-focus">Game · Initial &amp; Final P</div><h3>Rocket Race — P Sounds</h3></div>
+          </div>
+          <div class="desc">Same board, but /p/ falls at the start <em>or</em> end — pig, cup, ship, mop.</div>
+          <div class="game-meta"><span class="m">2–8 players</span><span class="m">start + end /p/</span><span class="m">minimal ink</span></div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section id="about" class="about">
+      <h2>About Yapla</h2>
+      <p>Yapla makes warm, practical resources for building communication — from single-sound picture cards and minimal-pair flashcards to vocabulary, sentence and social-language activities. Every set is designed to print cleanly for the clinic, the classroom or the kitchen table, and to keep the target sound or word the clear star of the page.</p>
+    </section>
+
+    <footer class="foot">Made for speech therapists, teachers and families · Print-friendly · Works offline</footer>
+  </div>
+
+  <!-- icon sprite + data + library renderer -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

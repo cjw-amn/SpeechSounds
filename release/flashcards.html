@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" class="dir-a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flashcards — Yapla</title>
+  <link rel="stylesheet" href="assets/css/brand-tokens.css" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='6' width='52' height='40' rx='14' fill='%23FF5D5D'/%3E%3Crect x='15' y='14' width='14' height='24' rx='4.5' fill='%23fff'/%3E%3Crect x='34' y='14' width='14' height='24' rx='4.5' fill='%23FFC53D'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="container">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <svg class="mark" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true">
+          <path class="mk-bubble" d="M16 45 L16 57 L29 45 Z"></path>
+          <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+          <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+          <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+        </svg>
+        <div class="brand-text">
+          <div class="title">Yap<span class="pl">la</span></div>
+          <div class="sub">Speech &amp; Language Resources</div>
+        </div>
+      </a>
+      <nav class="site-nav">
+        <a class="nav-btn" href="index.html">Library</a>
+      </nav>
+    </header>
+
+    <section class="fc-toolbar">
+      <div>
+        <h1 class="fc-title" id="fcTitle">Flashcards</h1>
+        <div class="fc-subtitle" id="fcSubtitle"></div>
+      </div>
+      <div class="fc-actions">
+        <div class="size-toggle" role="tablist" aria-label="Card size">
+          <button data-size="large" class="active">Large</button>
+          <button data-size="medium">Medium</button>
+          <button data-size="small">Small</button>
+        </div>
+        <a class="btn secondary" href="index.html">← Library</a>
+        <button class="btn" id="printBtn">🖨️ Print cards</button>
+      </div>
+    </section>
+
+    <main id="sheet" class="fc-sheet size-large"></main>
+
+    <section class="games-section" id="gamesSection">
+      <div class="games-header">
+        <h2>🎲 Games to play with these cards</h2>
+        <p class="games-sub">A dozen activities you can use with any printed minimal pair set. Pick one and go.</p>
+      </div>
+      <div class="games-grid" id="gamesGrid"></div>
+    </section>
+
+    <footer class="foot">Tip: in the print dialog, choose <em>letter</em> paper and enable <em>background graphics</em>.</footer>
+  </div>
+
+  <!-- Yapla mark — prints in the page footer -->
+  <div class="print-brand" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 64 64" width="15" height="15">
+      <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+      <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+      <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+    </svg>
+    <span class="wm">Yapla</span>
+  </div>
+
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/flashcards.js"></script>
+</body>
+</html>

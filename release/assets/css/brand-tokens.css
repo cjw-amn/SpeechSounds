@@ -1,0 +1,98 @@
+/* ============================================================
+   YAPLA — Brand tokens
+   Two directions, applied via a scope class: .dir-a / .dir-b
+   The product is locked to Direction A · Warm Playful.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap');
+
+/* ---------- Direction A · Warm Playful (primary) ---------- */
+.dir-a {
+  --b1: #FF5D5D;   /* coral — primary */
+  --b2: #FF9A3C;   /* tangerine */
+  --b3: #FFC53D;   /* sunny */
+  --b4: #7B5CFF;   /* grape — accent */
+  --b5: #16BFA6;   /* teal — fresh */
+  --b1-soft: #FFE7E4;
+  --b4-soft: #ECE7FF;
+
+  --ink: #21243D;
+  --ink-soft: #5A5E78;
+  --muted: #9A9DB4;
+  --bg: #FFF7EF;
+  --bg-2: #FFEFE2;
+  --surface: #FFFFFF;
+  --line: #F0E7DC;
+
+  --display: "Fredoka", system-ui, sans-serif;
+  --body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --display-weight: 600;
+  --radius-pill: 999px;
+  --radius-lg: 26px;
+  --radius: 18px;
+  --radius-sm: 12px;
+  --shadow-sm: 0 1px 2px rgba(33,36,61,.05), 0 6px 16px rgba(33,36,61,.06);
+  --shadow-md: 0 8px 20px rgba(33,36,61,.08), 0 24px 48px rgba(33,36,61,.10);
+
+  /* icon tones */
+  --ic-a:#FF5D5D; --ic-b:#FFC53D; --ic-c:#7B5CFF; --ic-ink:#21243D;
+}
+
+/* ---------- Direction B · Cool Bold ---------- */
+.dir-b {
+  --b1: #2C6BFF;   /* electric blue — primary */
+  --b2: #14B6D4;   /* cyan */
+  --b3: #7BC70C;   /* lime */
+  --b4: #FF6B5D;   /* coral — pop */
+  --b5: #6B4BFF;   /* indigo */
+  --b1-soft: #E2ECFF;
+  --b4-soft: #FFE6E2;
+
+  --ink: #14203A;
+  --ink-soft: #51607A;
+  --muted: #93A0B5;
+  --bg: #F2F6FD;
+  --bg-2: #E8F0FC;
+  --surface: #FFFFFF;
+  --line: #E3ECF7;
+
+  --display: "Bricolage Grotesque", system-ui, sans-serif;
+  --body: "Hanken Grotesk", system-ui, sans-serif;
+  --display-weight: 800;
+  --radius-pill: 14px;
+  --radius-lg: 20px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow-sm: 0 1px 2px rgba(20,32,58,.06), 0 6px 16px rgba(20,32,58,.07);
+  --shadow-md: 0 8px 20px rgba(20,32,58,.09), 0 24px 48px rgba(20,32,58,.12);
+
+  /* icon tones — share a warm accent so faces stay friendly */
+  --ic-a:#2C6BFF; --ic-b:#FFC02E; --ic-c:#FF6B5D; --ic-ink:#14203A;
+}
+
+/* ---------- Printed brand footer (visible only when printing) ----------
+   A small Yapla lockup that prints at the bottom of every sheet. Hidden
+   on screen so it never interferes with the live pages. Colours are
+   hard-coded so the mark renders correctly regardless of direction. */
+.print-brand { display: none; }
+@media print {
+  .print-brand {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    position: fixed;
+    left: 0; right: 0; bottom: 4mm;
+    font-family: "Fredoka", system-ui, sans-serif;
+    font-size: 9pt;
+    font-weight: 700;
+    color: #6b6f7e;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .print-brand .mark { width: 15px; height: 15px; flex-shrink: 0; }
+  .print-brand .mk-bubble { fill: #FF5D5D; }
+  .print-brand .mk-tile1 { fill: #ffffff; }
+  .print-brand .mk-tile2 { fill: #FFC53D; }
+  .print-brand .wm { letter-spacing: .02em; }
+}

@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en" class="dir-a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rocket Race — Initial P</title>
+  <link rel="stylesheet" href="assets/css/brand-tokens.css" />
+  <style>
+    :root {
+      --ink: #1a1a2e;
+      --muted: #6b6b80;
+      --p-color: #2a9d8f;
+      --line: #c8c8d4;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink); background: #f4f4f8;
+    }
+    .toolbar {
+      position: sticky; top: 0; background: #fff;
+      border-bottom: 1px solid #e5e5ec;
+      padding: 12px 24px;
+      display: flex; gap: 12px; align-items: center; justify-content: space-between;
+      z-index: 10;
+    }
+    .toolbar h1 { margin: 0; font-size: 18px; font-weight: 600; }
+    .toolbar .sub { color: var(--muted); font-size: 13px; }
+    .btn {
+      background: var(--ink); color: white; border: 0;
+      border-radius: 8px; padding: 10px 18px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    .page {
+      max-width: 8.5in; margin: 0 auto;
+      padding: 0.4in; background: #fff;
+    }
+
+    .game-header {
+      text-align: center;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--p-color);
+    }
+    .game-header h2 {
+      margin: 0 0 3px 0;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--p-color);
+      letter-spacing: -0.5px;
+    }
+    .game-header .tagline {
+      color: var(--muted);
+      font-size: 13px;
+      font-style: italic;
+    }
+
+    .how-to {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+      font-size: 11.5px;
+      line-height: 1.4;
+    }
+    .how-to .panel {
+      border: 1.5px dashed var(--line);
+      border-radius: 10px;
+      padding: 8px 11px;
+    }
+    .how-to h3 {
+      margin: 0 0 5px 0;
+      font-size: 12px;
+      color: var(--p-color);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .how-to ol, .how-to ul { margin: 0; padding-left: 16px; }
+    .how-to li { margin-bottom: 2px; }
+
+    /* ---- The flight track (free-form winding path) ---- */
+    .track {
+      border: 2px solid var(--p-color);
+      border-radius: 14px;
+      padding: 10px;
+      margin-bottom: 12px;
+    }
+    .board {
+      position: relative;
+      display: grid;
+      width: 100%;
+      gap: 0;
+    }
+    /* the dashed flight line, drawn through the centre of each cell, behind them */
+    .track-line {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cell {
+      position: relative;
+      z-index: 1;
+      margin: 5px;
+      background: #fff;
+      border: 1.5px solid var(--line);
+      border-radius: 9px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3px 2px;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+    .cell .num {
+      position: absolute;
+      top: 2px; left: 5px;
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .cell .emoji {
+      font-size: 23px;
+      line-height: 1;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
+    .cell .word {
+      font-size: 9.5px;
+      font-weight: 700;
+      margin-top: 2px;
+      text-transform: lowercase;
+      letter-spacing: 0.2px;
+    }
+    .cell .word .target {
+      color: var(--p-color);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
+    }
+
+    .cell.terminal {
+      border: 2.5px solid var(--p-color);
+      background: #fff;
+    }
+    .cell.terminal .big {
+      font-size: 24px;
+      line-height: 1;
+    }
+    .cell.terminal .label {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--p-color);
+      margin-top: 2px;
+    }
+    .cell.terminal .sub {
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    /* ---- Bottom: dice net + counters ---- */
+    .kit {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 12px;
+    }
+    .kit .panel {
+      border: 1.5px dashed var(--line);
+      border-radius: 10px;
+      padding: 8px 11px;
+    }
+    .kit h3 {
+      margin: 0 0 6px 0;
+      font-size: 12px;
+      color: var(--p-color);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    /* unfolded cube dice net */
+    .dice-net {
+      display: grid;
+      grid-template-columns: repeat(4, 34px);
+      grid-template-rows: repeat(3, 34px);
+      justify-content: center;
+      gap: 0;
+      margin: 2px auto 4px;
+    }
+    .face {
+      border: 1px solid var(--ink);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+      padding: 3px;
+    }
+    .face.empty { border: 0; }
+    .pip {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--ink);
+      align-self: center; justify-self: center;
+    }
+    /* pip positions within a 3x3 face */
+    .p-tl { grid-area: 1 / 1; } .p-tr { grid-area: 1 / 3; }
+    .p-ml { grid-area: 2 / 1; } .p-c  { grid-area: 2 / 2; } .p-mr { grid-area: 2 / 3; }
+    .p-bl { grid-area: 3 / 1; } .p-br { grid-area: 3 / 3; }
+    .dice-note { font-size: 9px; color: var(--muted); text-align: center; }
+
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 5px;
+    }
+    .counter {
+      aspect-ratio: 1 / 1;
+      border: 1.5px solid var(--ink);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
+    .counter-note { font-size: 9px; color: var(--muted); margin-top: 5px; }
+
+    .page-note {
+      margin: 14px 0 0 0;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--p-color);
+    }
+
+    /* page 2 — board gets the whole sheet, in landscape */
+    .board-page {
+      display: flex;
+      flex-direction: column;
+      max-width: 11in;
+    }
+    .board-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--p-color);
+      color: var(--p-color);
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+    .board-header .hint {
+      font-size: 12px;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--muted);
+    }
+    .board-page .track { flex: 1; }
+
+    .page + .page { margin-top: 16px; }
+
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .page { max-width: none; margin: 0; padding: 0.3in; page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+      .page + .page { margin-top: 0; }
+      /* page 1 portrait, page 2 (board) landscape */
+      .page { page: portrait; }
+      .board-page { page: landscape; }
+    }
+    @page portrait { size: letter portrait; margin: 0; }
+    @page landscape { size: letter landscape; margin: 0; }
+  </style>
+  <style>
+  /* ===== Yapla brand layer ===== */
+  html, body { font-family: var(--body); background: var(--bg); color: var(--ink); }
+  h1, h2 { font-family: var(--display); letter-spacing: -0.01em; }
+  .toolbar {
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toolbar h1 { font-family: var(--display); font-weight: 600; }
+  .toolbar .sub { color: var(--ink-soft); }
+  .btn { background: var(--b1); border-radius: var(--radius-pill); }
+  .tb-left { display: flex; align-items: center; gap: 14px; }
+  .brand-lock { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .brand-lock .mark { display: block; width: 30px; height: 30px; }
+  .brand-lock .mk-bubble { fill: var(--b1); }
+  .brand-lock .mk-tile1 { fill: #fff; }
+  .brand-lock .mk-tile2 { fill: var(--b3); }
+  .brand-lock .wm { font-family: var(--display); font-weight: 700; font-size: 18px; }
+  .brand-lock .wm .pl { color: var(--b1); }
+  @media print { .brand-lock { display: none; } }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="tb-left">
+      <a class="brand-lock" href="index.html" title="Back to Yapla library">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path class="mk-bubble" d="M16 45 L16 57 L29 45 Z"></path>
+          <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+          <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+          <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+        </svg>
+        <span class="wm">Yap<span class="pl">la</span></span>
+      </a>
+      <div>
+        <h1>Rocket Race — Initial P</h1>
+        <div class="sub">Printable roll-and-move speech game · letter paper · minimal ink</div>
+      </div>
+    </div>
+    <button class="btn" onclick="window.print()">🖨️ Print game</button>
+  </div>
+
+  <!-- PAGE 1 · Instructions, dice & counters -->
+  <section class="page">
+    <header class="game-header">
+      <h2>🚀 Rocket Race · Initial P</h2>
+      <div class="tagline">Blast off from the launch pad, roll, move, and say the /p/ word — first rocket to Planet P wins!</div>
+    </header>
+
+    <div class="how-to">
+      <div class="panel">
+        <h3>How to play</h3>
+        <ol>
+          <li>Print <strong>both sheets</strong>. The flight-path board is on page&nbsp;2.</li>
+          <li>Each player puts a counter on the <strong>🚀 LAUNCH</strong> pad.</li>
+          <li>Roll the dice and move your counter that many spaces along the flight path.</li>
+          <li><strong>Say the word</strong> you land on out loud — pop your lips for a strong <strong>P</strong>.</li>
+          <li>If it's a good P, you stay. If not, slide back one space and try that word.</li>
+          <li>First player to reach <strong>🪐 PLANET P</strong> at the end wins the race!</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Make it harder</h3>
+        <ul>
+          <li>Say the word <strong>3 times</strong>, or use it in a sentence.</li>
+          <li>You must land on Planet&nbsp;P with an <strong>exact</strong> roll.</li>
+          <li>Name another P word that rhymes or starts the same.</li>
+          <li>Play solo: beat your own time around the track.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="kit">
+      <div class="panel">
+        <h3>🎲 Dice — fold &amp; tape</h3>
+        <div class="dice-net" id="diceNet"></div>
+        <div class="dice-note">Cut the cross out, fold on the lines, tape into a cube. Or just use any dice you have.</div>
+      </div>
+      <div class="panel">
+        <h3>🚀 Counters — cut out</h3>
+        <div class="counter-grid" id="counters"></div>
+        <div class="counter-note">Cut out a rocket counter each (or use coins / buttons). Up to 8 players.</div>
+      </div>
+    </div>
+
+    <p class="page-note">▶ Game board on the next sheet — follow the dashed flight line from 🚀 Launch to 🪐 Planet&nbsp;P.</p>
+  </section>
+
+  <!-- PAGE 2 · The full-page flight path -->
+  <section class="page board-page">
+    <header class="board-header">
+      <span>🚀 Flight Path · Initial P</span>
+      <span class="hint">Land on a space → say the <strong>/p/</strong> word</span>
+    </header>
+    <div class="track" id="track"></div>
+  </section>
+
+  <script>
+    // Pool of word-initial /p/ words with picture icons
+    const POOL = [
+      { e: '🐷', w: 'pig' },
+      { e: '🍕', w: 'pizza' },
+      { e: '🐧', w: 'penguin' },
+      { e: '🖊️', w: 'pen' },
+      { e: '🍐', w: 'pear' },
+      { e: '🥧', w: 'pie' },
+      { e: '🫛', w: 'peas' },
+      { e: '📌', w: 'pin' },
+      { e: '🐶', w: 'puppy' },
+      { e: '🎁', w: 'present' },
+      { e: '🍿', w: 'popcorn' },
+      { e: '🥞', w: 'pancake' },
+      { e: '🐼', w: 'panda' },
+      { e: '🍑', w: 'peach' },
+      { e: '🦜', w: 'parrot' },
+      { e: '🥔', w: 'potato' },
+      { e: '🎨', w: 'paint' },
+      { e: '🎃', w: 'pumpkin' },
+      { e: '🌶️', w: 'pepper' },
+      { e: '🦚', w: 'peacock' },
+      { e: '🥨', w: 'pretzel' },
+      { e: '✏️', w: 'pencil' },
+      { e: '🍍', w: 'pineapple' },
+      { e: '🎹', w: 'piano' },
+      { e: '✈️', w: 'plane' },
+      { e: '🪴', w: 'plant' },
+      { e: '📄', w: 'paper' },
+      { e: '📦', w: 'parcel' },
+      { e: '🐴', w: 'pony' },
+      { e: '🚓', w: 'police' },
+    ];
+
+    // Deterministic sequence of 40 cards (repeats allowed, spread out).
+    const SEQ = [
+      0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
+      10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+      20, 21, 22, 23, 24, 25, 26, 27, 28, 29,
+      0, 5, 11, 16, 22, 2, 13, 19, 8, 26,
+    ];
+
+    // Inner content for each of the 42 stops: LAUNCH + 40 words + PLANET P.
+    const stops = [];
+    stops.push({ terminal: true, html:
+      `<div class="big">🚀</div><div class="label">Launch</div><div class="sub">start here</div>` });
+    SEQ.forEach((idx, i) => {
+      const it = POOL[idx];
+      stops.push({ terminal: false, html:
+        `<div class="num">${i + 1}</div>
+         <div class="emoji">${it.e}</div>
+         <div class="word"><span class="target">p</span>${it.w.slice(1)}</div>` });
+    });
+    stops.push({ terminal: true, html:
+      `<div class="big">🪐</div><div class="label">Planet&nbsp;P</div><div class="sub">finish!</div>` });
+
+    // Hand-drawn flight path on a 12 × 7 landscape grid. Each entry is the
+    // [column, row] of a stop, in play order (index 0 = Launch … 41 = Planet P).
+    // Start 1,2 → down 3,4 → right 5,6 → down 7,8 → left 9–12 → down 13,14 →
+    // right 15–20 → up 21–26 → right 27–29 → down 30,31 → right 32,33 →
+    // down 34,35 → left 36,37 → down 38,39 → right to the end.
+    const path = [
+      [0, 0],                                     // 🚀 Launch
+      [1, 0], [2, 0],                             // 1, 2
+      [2, 1], [2, 2],                             // 3, 4  (down)
+      [3, 2], [4, 2],                             // 5, 6  (right)
+      [4, 3], [4, 4],                             // 7, 8  (down)
+      [3, 4], [2, 4], [1, 4], [0, 4],            // 9–12  (left)
+      [0, 5], [0, 6],                             // 13, 14 (down)
+      [1, 6], [2, 6], [3, 6], [4, 6], [5, 6], [6, 6], // 15–20 (right)
+      [6, 5], [6, 4], [6, 3], [6, 2], [6, 1], [6, 0], // 21–26 (up)
+      [7, 0], [8, 0], [9, 0],                     // 27–29 (right)
+      [9, 1], [9, 2],                             // 30, 31 (down)
+      [10, 2], [11, 2],                           // 32, 33 (right)
+      [11, 3], [11, 4],                           // 34, 35 (down)
+      [10, 4], [9, 4],                            // 36, 37 (left)
+      [9, 5], [9, 6],                             // 38, 39 (down)
+      [10, 6], [11, 6],                           // 40, 🪐 Planet P (right to end)
+    ];
+    const cols = 12, rows = 7;
+    const track = document.getElementById('track');
+
+    // SVG dashed flight line through the centre of each stop.
+    const cx = c => ((c + 0.5) / cols) * 100;
+    const cy = r => ((r + 0.5) / rows) * 100;
+    const points = path.map(([c, r]) => `${cx(c).toFixed(2)},${cy(r).toFixed(2)}`).join(' ');
+    const svg =
+      `<svg class="track-line" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polyline points="${points}" fill="none" stroke="#2a9d8f"
+          stroke-width="1.6" stroke-dasharray="3 2.5"
+          stroke-linejoin="round" stroke-linecap="round"
+          vector-effect="non-scaling-stroke" />
+      </svg>`;
+
+    // Cells, each placed on the grid at its path coordinate.
+    const cellsHtml = stops.map((s, i) => {
+      const [c, r] = path[i];
+      const cls = 'cell' + (s.terminal ? ' terminal' : '');
+      return `<div class="${cls}" style="grid-column:${c + 1};grid-row:${r + 1}">${s.html}</div>`;
+    }).join('');
+
+    track.innerHTML =
+      `<div class="board" style="grid-template-columns:repeat(${cols},1fr);` +
+      `grid-template-rows:repeat(${rows},1fr);height:6.6in">` +
+      svg + cellsHtml + `</div>`;
+
+    // Build a 6-sided dice net (cross layout) with pips.
+    const PIPS = {
+      1: ['p-c'],
+      2: ['p-tl', 'p-br'],
+      3: ['p-tl', 'p-c', 'p-br'],
+      4: ['p-tl', 'p-tr', 'p-bl', 'p-br'],
+      5: ['p-tl', 'p-tr', 'p-c', 'p-bl', 'p-br'],
+      6: ['p-tl', 'p-tr', 'p-ml', 'p-mr', 'p-bl', 'p-br'],
+    };
+    function face(n) {
+      const pips = PIPS[n].map(c => `<span class="pip ${c}"></span>`).join('');
+      return `<div class="face">${pips}</div>`;
+    }
+    const empty = '<div class="face empty"></div>';
+    // Cross net across a 4x3 grid: row1 = . 1 . . | row2 = 2 3 4 5 | row3 = . 6 . .
+    const net = [
+      empty, face(1), empty, empty,
+      face(2), face(3), face(4), face(5),
+      empty, face(6), empty, empty,
+    ];
+    document.getElementById('diceNet').innerHTML = net.join('');
+
+    // Rocket counters to cut out (8).
+    document.getElementById('counters').innerHTML =
+      Array.from({ length: 8 }, () => '<div class="counter">🚀</div>').join('');
+  </script>
+
+  <!-- Yapla mark — prints in the page footer -->
+  <div class="print-brand" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 64 64" width="15" height="15">
+      <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+      <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+      <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+    </svg>
+    <span class="wm">Yapla</span>
+  </div>
+</body>
+</html>

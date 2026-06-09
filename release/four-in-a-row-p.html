@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en" class="dir-a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Four in a Row — Initial P</title>
+  <link rel="stylesheet" href="assets/css/brand-tokens.css" />
+  <style>
+    :root {
+      --ink: #1a1a2e;
+      --muted: #6b6b80;
+      --p-color: #2a9d8f;
+      --board-bg: #e8f7f4;
+      --board-border: #2a9d8f;
+      --p1: #2a9d8f;
+      --p2: #e76f51;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink); background: #f4f4f8;
+    }
+    .toolbar {
+      position: sticky; top: 0; background: #fff;
+      border-bottom: 1px solid #e5e5ec;
+      padding: 12px 24px;
+      display: flex; gap: 12px; align-items: center; justify-content: space-between;
+      z-index: 10;
+    }
+    .toolbar h1 { margin: 0; font-size: 18px; font-weight: 600; }
+    .toolbar .sub { color: var(--muted); font-size: 13px; }
+    .btn {
+      background: var(--ink); color: white; border: 0;
+      border-radius: 8px; padding: 10px 18px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    .page {
+      max-width: 8.5in; margin: 0 auto;
+      padding: 0.4in; background: #fff;
+    }
+
+    .game-header {
+      text-align: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid var(--p-color);
+    }
+    .game-header h2 {
+      margin: 0 0 4px 0;
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--p-color);
+      letter-spacing: -0.5px;
+    }
+    .game-header .tagline {
+      color: var(--muted);
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .how-to {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 14px;
+      font-size: 12px;
+      line-height: 1.45;
+    }
+    .how-to .panel {
+      border: 1.5px dashed #d8d8e0;
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .how-to h3 {
+      margin: 0 0 6px 0;
+      font-size: 13px;
+      color: var(--p-color);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .how-to ol, .how-to ul { margin: 0; padding-left: 18px; }
+    .how-to li { margin-bottom: 3px; }
+
+    .scoreboard {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 12px;
+    }
+    .player {
+      border: 2px solid currentColor;
+      border-radius: 10px;
+      padding: 6px 14px;
+      font-weight: 700;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .player.p1 { color: var(--p1); }
+    .player.p2 { color: var(--p2); }
+    .player .dot {
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .board {
+      background: var(--board-bg);
+      border: 4px solid var(--board-border);
+      border-radius: 16px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .cell {
+      background: #fff;
+      border: 2px solid #2a9d8f;
+      border-radius: 50%;
+      aspect-ratio: 1 / 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4px;
+      text-align: center;
+      page-break-inside: avoid;
+    }
+    .cell .emoji {
+      font-size: 28px;
+      line-height: 1;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
+    .cell .word {
+      font-size: 10px;
+      font-weight: 700;
+      margin-top: 2px;
+      text-transform: lowercase;
+      letter-spacing: 0.3px;
+    }
+    .cell .word .target { color: var(--p-color); }
+
+    .column-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      padding: 0 14px;
+      margin-bottom: 4px;
+    }
+    .column-labels span {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .counters {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .counter-strip {
+      border: 1.5px dashed #d8d8e0;
+      border-radius: 10px;
+      padding: 8px;
+      text-align: center;
+    }
+    .counter-strip .label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .counter-strip.p1 .label { color: var(--p1); }
+    .counter-strip.p2 .label { color: var(--p2); }
+    .counter-row {
+      display: flex;
+      justify-content: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+    .counter {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      border: 2px solid currentColor;
+    }
+    .counter-strip.p1 .counter { color: var(--p1); background: var(--p1); }
+    .counter-strip.p2 .counter { color: var(--p2); background: var(--p2); }
+
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .page { max-width: none; margin: 0; padding: 0.3in; }
+      .cell { border-width: 1.5px; }
+    }
+    @page { size: letter; margin: 0; }
+  </style>
+<style>
+  /* ===== Yapla brand layer ===== */
+  html, body { font-family: var(--body); background: var(--bg); color: var(--ink); }
+  h1, h2 { font-family: var(--display); letter-spacing: -0.01em; }
+  .toolbar {
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toolbar h1 { font-family: var(--display); font-weight: 600; }
+  .toolbar .sub { color: var(--ink-soft); }
+  .btn { background: var(--b1); border-radius: var(--radius-pill); }
+  .tb-left { display: flex; align-items: center; gap: 14px; }
+  .brand-lock { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .brand-lock .mark { display: block; width: 30px; height: 30px; }
+  .brand-lock .mk-bubble { fill: var(--b1); }
+  .brand-lock .mk-tile1 { fill: #fff; }
+  .brand-lock .mk-tile2 { fill: var(--b3); }
+  .brand-lock .wm { font-family: var(--display); font-weight: 700; font-size: 18px; }
+  .brand-lock .wm .pl { color: var(--b1); }
+  @media print { .brand-lock { display: none; } }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="tb-left">
+      <a class="brand-lock" href="index.html" title="Back to Yapla library">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path class="mk-bubble" d="M16 45 L16 57 L29 45 Z"></path>
+          <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+          <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+          <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+        </svg>
+        <span class="wm">Yap<span class="pl">la</span></span>
+      </a>
+      <div>
+        <h1>Four in a Row — Initial P</h1>
+        <div class="sub">Printable 2-player speech game · letter paper</div>
+      </div>
+    </div>
+    <button class="btn" onclick="window.print()">🖨️ Print game</button>
+  </div>
+
+  <section class="page">
+    <header class="game-header">
+      <h2>🎯 Four in a Row · Initial P</h2>
+      <div class="tagline">Say the /p/ word, then drop your counter. First to four in a row wins!</div>
+    </header>
+
+    <div class="how-to">
+      <div class="panel">
+        <h3>How to play</h3>
+        <ol>
+          <li>Cut out the counters at the bottom (or use coins/buttons).</li>
+          <li>Players take turns. On your turn, pick a <strong>column</strong>.</li>
+          <li>Say the word in the lowest empty circle of that column out loud — pop your lips for a clear P.</li>
+          <li>If your therapist/partner says it's a good P, place your counter in that circle.</li>
+          <li>First player to get <strong>four in a row</strong> — across, down, or diagonally — wins!</li>
+        </ol>
+      </div>
+      <div class="panel">
+        <h3>Variations</h3>
+        <ul>
+          <li><strong>Easy:</strong> say the word once. <strong>Harder:</strong> say it 3× or use it in a sentence.</li>
+          <li>Use real Connect 4 counters and place this sheet under the frame.</li>
+          <li>Play to <strong>five in a row</strong> for a longer game.</li>
+          <li>Cover counters with sticky tack to remove and replay.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="column-labels">
+      <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+    </div>
+
+    <div class="board" id="board"></div>
+
+    <div class="counters">
+      <div class="counter-strip p1">
+        <div class="label">● Player 1 counters — cut out</div>
+        <div class="counter-row">
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span>
+        </div>
+      </div>
+      <div class="counter-strip p2">
+        <div class="label">● Player 2 counters — cut out</div>
+        <div class="counter-row">
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span><span class="counter"></span><span class="counter"></span><span class="counter"></span>
+          <span class="counter"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // 18 P-initial words distributed across a 7x6 = 42 cell board
+    const WORDS = [
+      { e: '🐷', w: 'pig',     t: 'p' },
+      { e: '🍕', w: 'pizza',   t: 'p' },
+      { e: '🐧', w: 'penguin', t: 'p' },
+      { e: '🖊️', w: 'pen',     t: 'p' },
+      { e: '🍐', w: 'pear',    t: 'p' },
+      { e: '🥧', w: 'pie',     t: 'p' },
+      { e: '🫛', w: 'peas',    t: 'p' },
+      { e: '📌', w: 'pin',     t: 'p' },
+      { e: '🐶', w: 'puppy',   t: 'p' },
+      { e: '🎁', w: 'present', t: 'p' },
+      { e: '🍿', w: 'popcorn', t: 'p' },
+      { e: '🥞', w: 'pancake', t: 'p' },
+      { e: '🐼', w: 'panda',   t: 'p' },
+      { e: '🍑', w: 'peach',   t: 'p' },
+      { e: '🦜', w: 'parrot',  t: 'p' },
+      { e: '🥔', w: 'potato',  t: 'p' },
+      { e: '🎨', w: 'paint',   t: 'p' },
+      { e: '🎃', w: 'pumpkin', t: 'p' },
+    ];
+
+    // Stable shuffled sequence (deterministic so every print is identical)
+    const SEED = [
+      0, 6, 1, 7, 2, 8, 3,
+      9, 4, 10, 5, 11, 12, 13,
+      14, 15, 16, 17, 0, 6, 1,
+      7, 2, 8, 3, 9, 4, 10,
+      5, 11, 12, 13, 14, 15, 16,
+      17, 0, 6, 1, 7, 2, 8,
+    ];
+
+    const board = document.getElementById('board');
+    board.innerHTML = SEED.map(i => {
+      const it = WORDS[i];
+      const rest = it.w.slice(1);
+      return `<div class="cell">
+        <div class="emoji">${it.e}</div>
+        <div class="word"><span class="target">${it.t}</span>${rest}</div>
+      </div>`;
+    }).join('');
+  </script>
+
+  <!-- Yapla mark — prints in the page footer -->
+  <div class="print-brand" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 64 64" width="15" height="15">
+      <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+      <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+      <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+    </svg>
+    <span class="wm">Yapla</span>
+  </div>
+</body>
+</html>
