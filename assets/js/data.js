@@ -634,6 +634,24 @@ const CONTRASTS = [
       { a: { word: 'hood',  emoji: '🧥' }, b: { word: 'who’d',emoji: '❓' } },
     ],
   },
+  {
+    id: 'vowel-air-ar',
+    title: 'AIR vs AR',
+    category: 'Vowels',
+    description: 'R-coloured vowel /eə/ (air, as in chair) contrasted with /ɑː/ (ar, as in car).',
+    color: '#ff7b00',
+    pairs: [
+      { a: { word: 'chair', emoji: '🪑' }, b: { word: 'char',  emoji: '🔥' } },
+      { a: { word: 'bear',  emoji: '🐻' }, b: { word: 'bar',   emoji: '🍫' } },
+      { a: { word: 'care',  emoji: '🤲' }, b: { word: 'car',   emoji: '🚗' } },
+      { a: { word: 'fair',  emoji: '🎡' }, b: { word: 'far',   emoji: '🔭' } },
+      { a: { word: 'stair', emoji: '🪜' }, b: { word: 'star',  emoji: '⭐' } },
+      { a: { word: 'pair',  emoji: '🧦' }, b: { word: 'par',   emoji: '⛳' } },
+      { a: { word: 'spare', emoji: '🛞' }, b: { word: 'spar',  emoji: '🥊' } },
+      { a: { word: 'scare', emoji: '👻' }, b: { word: 'scar',  emoji: '🩹' } },
+      { a: { word: 'mare',  emoji: '🐴' }, b: { word: 'mar',   emoji: '🔨' } },
+    ],
+  },
 ];
 
 const CATEGORIES = [...new Set(CONTRASTS.map(c => c.category))];
