@@ -170,10 +170,11 @@ a { color: inherit; }
 }
 .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 4px var(--b1-soft); }
 .search::before {
-  content: "🔍";
+  content: "";
   position: absolute;
   left: 14px; top: 50%; transform: translateY(-50%);
-  font-size: 14px;
+  width: 15px; height: 15px;
+  background: url(../img/emoji/1f50d.svg) center / contain no-repeat;
   opacity: .7;
 }
 

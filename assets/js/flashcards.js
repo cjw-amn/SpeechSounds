@@ -22,12 +22,12 @@
       <div class="pair">
         <div class="card a" style="--card-color:${contrast.color}">
           <span class="tag">A</span>
-          <div class="emoji">${p.a.emoji}</div>
+          <div class="emoji">${Yapla.pic(p.a.emoji)}</div>
           <div class="word">${p.a.word}</div>
         </div>
         <div class="card b" style="--card-color:${contrast.color}">
           <span class="tag">B</span>
-          <div class="emoji">${p.b.emoji}</div>
+          <div class="emoji">${Yapla.pic(p.b.emoji)}</div>
           <div class="word">${p.b.word}</div>
         </div>
       </div>

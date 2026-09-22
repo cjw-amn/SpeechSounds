@@ -479,7 +479,7 @@ const CONTRASTS = [
     pairs: [
       { a: { word: 'pan',   emoji: '🍳' }, b: { word: 'pen',   emoji: '🖊️' } },
       { a: { word: 'bat',   emoji: '🦇' }, b: { word: 'bet',   emoji: '🎰' } },
-      { a: { word: 'man',   emoji: '👨' }, b: { word: 'men',   emoji: '👬' } },
+      { a: { word: 'man',   emoji: '👨' }, b: { word: 'men',   emoji: '👥' } },
       { a: { word: 'bad',   emoji: '👎' }, b: { word: 'bed',   emoji: '🛏️' } },
       { a: { word: 'sat',   emoji: '🪑' }, b: { word: 'set',   emoji: '📦' } },
       { a: { word: 'had',   emoji: '🫴' }, b: { word: 'head',  emoji: '👤' } },
@@ -561,7 +561,7 @@ const CONTRASTS = [
     color: '#a7c957',
     pairs: [
       { a: { word: 'bait',  emoji: '🪱' }, b: { word: 'beet',  emoji: '🥬' } },
-      { a: { word: 'mate',  emoji: '👬' }, b: { word: 'meet',  emoji: '🤝' } },
+      { a: { word: 'mate',  emoji: '🫂' }, b: { word: 'meet',  emoji: '🤝' } },
       { a: { word: 'pail',  emoji: '🪣' }, b: { word: 'peel',  emoji: '🍌' } },
       { a: { word: 'raid',  emoji: '⚔️' }, b: { word: 'reed',  emoji: '🌾' } },
       { a: { word: 'fade',  emoji: '🌅' }, b: { word: 'feed',  emoji: '🍼' } },
@@ -632,6 +632,24 @@ const CONTRASTS = [
       { a: { word: 'wood',  emoji: '🪵' }, b: { word: 'wooed', emoji: '💘' } },
       { a: { word: 'stood', emoji: '🧍' }, b: { word: 'stewed',emoji: '🍲' } },
       { a: { word: 'hood',  emoji: '🧥' }, b: { word: 'who’d',emoji: '❓' } },
+    ],
+  },
+  {
+    id: 'vowel-air-ar',
+    title: 'AIR vs AR',
+    category: 'Vowels',
+    description: 'R-coloured vowel /eə/ (air, as in chair) contrasted with /ɑː/ (ar, as in car).',
+    color: '#ff7b00',
+    pairs: [
+      { a: { word: 'chair', emoji: '🪑' }, b: { word: 'char',  emoji: '🔥' } },
+      { a: { word: 'bear',  emoji: '🐻' }, b: { word: 'bar',   emoji: '🍫' } },
+      { a: { word: 'care',  emoji: '🤲' }, b: { word: 'car',   emoji: '🚗' } },
+      { a: { word: 'fair',  emoji: '🎡' }, b: { word: 'far',   emoji: '🔭' } },
+      { a: { word: 'stair', emoji: '🪜' }, b: { word: 'star',  emoji: '⭐' } },
+      { a: { word: 'pair',  emoji: '🧦' }, b: { word: 'par',   emoji: '⛳' } },
+      { a: { word: 'spare', emoji: '🛞' }, b: { word: 'spar',  emoji: '🥊' } },
+      { a: { word: 'scare', emoji: '👻' }, b: { word: 'scar',  emoji: '🩹' } },
+      { a: { word: 'mare',  emoji: '🐴' }, b: { word: 'mar',   emoji: '🔨' } },
     ],
   },
 ];

@@ -96,3 +96,17 @@
   .print-brand .mk-tile2 { fill: #FFC53D; }
   .print-brand .wm { letter-spacing: .02em; }
 }
+
+/* ---------- Pictures ----------
+   Card pictures are SVGs (Microsoft Fluent Emoji, Flat — MIT, see
+   assets/img/emoji/LICENSE.txt) inserted by assets/js/pics.js. They are sized
+   like a glyph so the existing font-size rules keep working. */
+img.pic {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  vertical-align: -0.15em;
+  object-fit: contain;
+  user-select: none;
+}
+.print-brand .credit { font-weight: 500; }

@@ -39,3 +39,11 @@ results. The repeating print footer is most reliable in Chrome/Edge.
 Branding uses the Fredoka and Plus Jakarta Sans webfonts, loaded from Google
 Fonts. With an internet connection they load automatically; fully offline, the
 pages fall back to your system sans-serif and everything still works.
+
+## Credits and licences
+
+Card pictures are Microsoft's [Fluent Emoji](https://github.com/microsoft/fluentui-emoji)
+(Flat style), redistributed under the MIT licence. The licence text ships with
+the files in `assets/img/emoji/LICENSE.txt`; keep that file with the site. The
+pictures are served as SVG so every card looks the same on every device and
+printer, and no system emoji font is used.

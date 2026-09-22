@@ -479,7 +479,7 @@ const CONTRASTS = [
     pairs: [
       { a: { word: 'pan',   emoji: '🍳' }, b: { word: 'pen',   emoji: '🖊️' } },
       { a: { word: 'bat',   emoji: '🦇' }, b: { word: 'bet',   emoji: '🎰' } },
-      { a: { word: 'man',   emoji: '👨' }, b: { word: 'men',   emoji: '👬' } },
+      { a: { word: 'man',   emoji: '👨' }, b: { word: 'men',   emoji: '👥' } },
       { a: { word: 'bad',   emoji: '👎' }, b: { word: 'bed',   emoji: '🛏️' } },
       { a: { word: 'sat',   emoji: '🪑' }, b: { word: 'set',   emoji: '📦' } },
       { a: { word: 'had',   emoji: '🫴' }, b: { word: 'head',  emoji: '👤' } },
@@ -561,7 +561,7 @@ const CONTRASTS = [
     color: '#a7c957',
     pairs: [
       { a: { word: 'bait',  emoji: '🪱' }, b: { word: 'beet',  emoji: '🥬' } },
-      { a: { word: 'mate',  emoji: '👬' }, b: { word: 'meet',  emoji: '🤝' } },
+      { a: { word: 'mate',  emoji: '🫂' }, b: { word: 'meet',  emoji: '🤝' } },
       { a: { word: 'pail',  emoji: '🪣' }, b: { word: 'peel',  emoji: '🍌' } },
       { a: { word: 'raid',  emoji: '⚔️' }, b: { word: 'reed',  emoji: '🌾' } },
       { a: { word: 'fade',  emoji: '🌅' }, b: { word: 'feed',  emoji: '🍼' } },

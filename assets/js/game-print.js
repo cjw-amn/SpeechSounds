@@ -54,12 +54,12 @@
     'listen-point': () => {
       const rows = contrast.pairs.map(p => `
         <tr>
-          <td class="emoji">${p.a.emoji}</td><td class="word">${esc(p.a.word)}</td>
+          <td class="emoji">${Yapla.pic(p.a.emoji)}</td><td class="word">${esc(p.a.word)}</td>
           <td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td>
           <td class="box"></td>
         </tr>
         <tr>
-          <td class="emoji">${p.b.emoji}</td><td class="word">${esc(p.b.word)}</td>
+          <td class="emoji">${Yapla.pic(p.b.emoji)}</td><td class="word">${esc(p.b.word)}</td>
           <td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td><td class="box"></td>
           <td class="box"></td>
         </tr>
@@ -80,13 +80,13 @@
         <div class="sort-mat">
           <div class="sort-col" style="--card-color:${contrast.color}">
             <h3>${esc(sA)}</h3>
-            <div class="ex">${exA().emoji}</div>
+            <div class="ex">${Yapla.pic(exA().emoji)}</div>
             <div class="ex-word">${esc(exA().word)}</div>
             <div class="place-here">place ${esc(sA)} cards here</div>
           </div>
           <div class="sort-col" style="--card-color:${contrast.color}">
             <h3>${esc(sB)}</h3>
-            <div class="ex">${exB().emoji}</div>
+            <div class="ex">${Yapla.pic(exB().emoji)}</div>
             <div class="ex-word">${esc(exB().word)}</div>
             <div class="place-here">place ${esc(sB)} cards here</div>
           </div>
@@ -142,9 +142,9 @@
         <div class="roll-cell" style="--card-color:${contrast.color}">
           <span class="die">${i + 1}</span>
           <div style="display:flex; justify-content:space-around; align-items:center;">
-            <div><div class="em">${p.a.emoji}</div><div class="w">${esc(p.a.word)}</div></div>
+            <div><div class="em">${Yapla.pic(p.a.emoji)}</div><div class="w">${esc(p.a.word)}</div></div>
             <div style="font-size:18px; color:var(--muted);">·</div>
-            <div><div class="em">${p.b.emoji}</div><div class="w">${esc(p.b.word)}</div></div>
+            <div><div class="em">${Yapla.pic(p.b.emoji)}</div><div class="w">${esc(p.b.word)}</div></div>
           </div>
           <div class="reps">say each × 3</div>
         </div>
@@ -164,7 +164,7 @@
         'My <span class="blank"></span> is faster than your <span class="blank"></span>.',
       ];
       const bank = contrast.pairs.slice(0, 10).flatMap(p => [p.a, p.b])
-        .map(w => `<div><span class="em">${w.emoji}</span><span>${esc(w.word)}</span></div>`).join('');
+        .map(w => `<div><span class="em">${Yapla.pic(w.emoji)}</span><span>${esc(w.word)}</span></div>`).join('');
       return header('Pick one word from each side of the contrast and fill the blanks to make the silliest sentence you can. Read it aloud, then draw the scene!') + `
         ${frames.map(f => `<div class="sent-frame">${f}</div>`).join('')}
         <div class="word-bank">
@@ -182,7 +182,7 @@
           const idx = (offset + i) % contrast.pairs.length;
           const p = contrast.pairs[idx];
           const w = i % 2 === 0 ? p.a : p.b;
-          cells += `<div class="ttt-cell"><div class="em">${w.emoji}</div><div class="w">${esc(w.word)}</div></div>`;
+          cells += `<div class="ttt-cell"><div class="em">${Yapla.pic(w.emoji)}</div><div class="w">${esc(w.word)}</div></div>`;
         }
         return `<div class="ttt-grid">${cells}</div>`;
       }
@@ -205,9 +205,9 @@
         { em: '🧺', l: 'in the basket' },
         { em: '🧸', l: 'with a toy' },
       ];
-      const map = spots.map(s => `<div class="hide-spot"><span class="em">${s.em}</span>${esc(s.l)}</div>`).join('');
+      const map = spots.map(s => `<div class="hide-spot"><span class="em">${Yapla.pic(s.em)}</span>${esc(s.l)}</div>`).join('');
       const list = contrast.pairs.slice(0, 10).flatMap(p => [p.a, p.b]).map(w =>
-        `<label><span class="check"></span><span class="em">${w.emoji}</span><span>${esc(w.word)}</span></label>`
+        `<label><span class="check"></span><span class="em">${Yapla.pic(w.emoji)}</span><span>${esc(w.word)}</span></label>`
       ).join('');
       return header('Hide the flashcards in the marked spots (or your own). Each card found = name it three times. Tick the box when caught!') + `
         <div class="treasure-map">${map}</div>
@@ -235,8 +235,8 @@
 
     'minimal-pair-trade': () => {
       const strips = contrast.pairs.slice(0, 8).flatMap(p => [
-        `<div class="request-strip" style="--card-color:${contrast.color}"><span class="em">${p.a.emoji}</span><span>"Can I please have <strong>${esc(p.a.word)}</strong>?"</span></div>`,
-        `<div class="request-strip" style="--card-color:${contrast.color}"><span class="em">${p.b.emoji}</span><span>"Can I please have <strong>${esc(p.b.word)}</strong>?"</span></div>`,
+        `<div class="request-strip" style="--card-color:${contrast.color}"><span class="em">${Yapla.pic(p.a.emoji)}</span><span>"Can I please have <strong>${esc(p.a.word)}</strong>?"</span></div>`,
+        `<div class="request-strip" style="--card-color:${contrast.color}"><span class="em">${Yapla.pic(p.b.emoji)}</span><span>"Can I please have <strong>${esc(p.b.word)}</strong>?"</span></div>`,
       ]).join('');
       return header('Cut along the dashes. Hand the child a request strip; they read it aloud. You only pass the matching card if you clearly hear the target contrast. Trade and swap roles.') + strips;
     },
@@ -264,8 +264,8 @@
 
     'auditory-bombardment': () => {
       const [sA, sB] = sounds();
-      const colA = contrast.pairs.map(p => `<li><span class="em">${p.a.emoji}</span><span class="w">${esc(p.a.word)}</span></li>`).join('');
-      const colB = contrast.pairs.map(p => `<li><span class="em">${p.b.emoji}</span><span class="w">${esc(p.b.word)}</span></li>`).join('');
+      const colA = contrast.pairs.map(p => `<li><span class="em">${Yapla.pic(p.a.emoji)}</span><span class="w">${esc(p.a.word)}</span></li>`).join('');
+      const colB = contrast.pairs.map(p => `<li><span class="em">${Yapla.pic(p.b.emoji)}</span><span class="w">${esc(p.b.word)}</span></li>`).join('');
       return header('Read every word slowly and clearly to the child. They just listen — no productions yet. 1–2 minutes of focused input primes the ear before practice.') + `
         <div class="bombard">
           <div class="bombard-col" style="--card-color:${contrast.color}">
@@ -284,9 +284,9 @@
 
   function wordList() {
     return contrast.pairs.map(p =>
-      `<div class="pair-row"><span class="em">${p.a.emoji}</span><span class="w">${esc(p.a.word)}</span>
+      `<div class="pair-row"><span class="em">${Yapla.pic(p.a.emoji)}</span><span class="w">${esc(p.a.word)}</span>
        <span style="color:var(--muted); margin:0 4px;">·</span>
-       <span class="em">${p.b.emoji}</span><span class="w">${esc(p.b.word)}</span></div>`
+       <span class="em">${Yapla.pic(p.b.emoji)}</span><span class="w">${esc(p.b.word)}</span></div>`
     ).join('');
   }
 
