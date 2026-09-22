@@ -42,6 +42,9 @@ pages fall back to your system sans-serif and everything still works.
 
 ## Credits and licences
 
+© 2026 Yapla. All rights reserved. The word lists, card layouts, games, page
+design and code are Yapla's own work. See `COPYRIGHT.md`.
+
 Card pictures are Microsoft's [Fluent Emoji](https://github.com/microsoft/fluentui-emoji)
 (Flat style), redistributed under the MIT licence. The licence text ships with
 the files in `assets/img/emoji/LICENSE.txt`; keep that file with the site. The
