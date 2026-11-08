@@ -5,6 +5,9 @@ The SVG files in this folder are Microsoft's Fluent Emoji (Flat style),
 https://github.com/microsoft/fluentui-emoji, redistributed under the MIT
 licence reproduced below. Files are named by Unicode code point.
 
+The files in custom/ (apple-core, tap, take, torn-paper, tum) are Yapla's
+modified versions of Fluent Emoji pictures, under the same licence.
+
 MIT License
 
 Copyright (c) Microsoft Corporation.

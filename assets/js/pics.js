@@ -13,6 +13,10 @@
 // swapPics runs automatically once the page has loaded, so static pages only
 // need to include this script. Renderers that build HTML should call pic().
 // If an SVG is ever missing the <img> falls back to the original character.
+//
+// Where Fluent has no suitable picture, the data can use a 'yapla:<name>' key
+// instead of an emoji, e.g. Yapla.pic('yapla:tap') -> assets/img/emoji/custom/
+// tap.svg. Those files are our own edits of Fluent pictures (same licence).
 
 window.Yapla = window.Yapla || {};
 
@@ -45,6 +49,7 @@ window.Yapla = window.Yapla || {};
   }
 
   function picSrc(emoji) {
+    if (emoji.indexOf('yapla:') === 0) return BASE + 'custom/' + emoji.slice(6) + '.svg';
     return BASE + fileKey(emoji) + '.svg';
   }
 

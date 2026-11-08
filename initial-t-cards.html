@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en" class="dir-a">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Picture Cards — Initial T (CVC)</title>
+  <link rel="stylesheet" href="assets/css/brand-tokens.css" />
+  <style>
+    :root {
+      --ink: #1a1a2e;
+      --muted: #6b6b80;
+      --k-color: #e63946;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--ink); background: #f4f4f8;
+    }
+    .toolbar {
+      position: sticky; top: 0; background: #fff;
+      border-bottom: 1px solid #e5e5ec;
+      padding: 12px 24px;
+      display: flex; gap: 12px; align-items: center; justify-content: space-between;
+      z-index: 10;
+    }
+    .toolbar h1 { margin: 0; font-size: 18px; font-weight: 600; }
+    .toolbar .sub { color: var(--muted); font-size: 13px; }
+    .btn {
+      background: var(--ink); color: white; border: 0;
+      border-radius: 8px; padding: 10px 18px;
+      font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .btn:hover { opacity: 0.9; }
+
+    .page {
+      max-width: 8.5in; margin: 0 auto;
+      padding: 0.4in; background: #fff;
+    }
+    .page + .page { margin-top: 16px; }
+
+    .sheet-header {
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 3px solid var(--k-color);
+      color: var(--k-color);
+    }
+    .sheet-header h2 { margin: 0; font-size: 28px; font-weight: 800; letter-spacing: -0.5px; }
+    .sheet-header .ipa { color: var(--muted); font-size: 14px; font-style: italic; }
+    .sheet-header .example { font-size: 16px; font-weight: 600; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+    .card {
+      background: #fff;
+      border: 2px solid #ffcdd1;
+      border-radius: 12px;
+      aspect-ratio: 1 / 1.15;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 12px; text-align: center;
+      page-break-inside: avoid; break-inside: avoid;
+    }
+    .card .emoji {
+      font-size: 84px; line-height: 1; margin-bottom: 10px;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
+    .card .word {
+      font-size: 26px; font-weight: 700;
+      letter-spacing: 0.5px; text-transform: lowercase;
+    }
+    .card .word .target {
+      color: var(--k-color);
+      text-decoration: underline;
+      text-decoration-thickness: 3px;
+      text-underline-offset: 4px;
+    }
+
+    @media print {
+      .toolbar { display: none; }
+      body { background: #fff; }
+      .page { max-width: none; margin: 0; padding: 0.3in; page-break-after: always; }
+      .page:last-child { page-break-after: auto; }
+      .card .emoji { font-size: 76px; }
+    }
+    @page { size: letter; margin: 0; }
+  </style>
+  <style>
+  /* ===== Yapla brand layer ===== */
+  html, body { font-family: var(--body); background: var(--bg); color: var(--ink); }
+  h1, h2 { font-family: var(--display); letter-spacing: -0.01em; }
+  .toolbar {
+    background: color-mix(in srgb, var(--surface) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .toolbar h1 { font-family: var(--display); font-weight: 600; }
+  .toolbar .sub { color: var(--ink-soft); }
+  .btn { background: var(--b1); border-radius: var(--radius-pill); }
+  .tb-left { display: flex; align-items: center; gap: 14px; }
+  .brand-lock { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .brand-lock .mark { display: block; width: 30px; height: 30px; }
+  .brand-lock .mk-bubble { fill: var(--b1); }
+  .brand-lock .mk-tile1 { fill: #fff; }
+  .brand-lock .mk-tile2 { fill: var(--b3); }
+  .brand-lock .wm { font-family: var(--display); font-weight: 700; font-size: 18px; }
+  .brand-lock .wm .pl { color: var(--b1); }
+  @media print { .brand-lock { display: none; } }
+</style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="tb-left">
+      <a class="brand-lock" href="index.html" title="Back to Yapla library">
+        <svg class="mark" viewBox="0 0 64 64" aria-hidden="true">
+          <path class="mk-bubble" d="M16 45 L16 57 L29 45 Z"></path>
+          <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+          <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+          <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+        </svg>
+        <span class="wm">Yap<span class="pl">la</span></span>
+      </a>
+      <div>
+        <h1>Picture Cards — Initial T (CVC)</h1>
+        <div class="sub">Initial /t/ CVC words · 18 cards · cut along card borders</div>
+      </div>
+    </div>
+    <button class="btn" onclick="window.print()">🖨️ Print</button>
+  </div>
+
+  <section class="page">
+    <header class="sheet-header">
+      <div>
+        <h2>Initial <u>T</u> · Sheet 1</h2>
+        <div class="ipa">CVC words starting with /t/ — start with a crisp T sound</div>
+      </div>
+      <div class="example">🛁 <u>t</u>ub</div>
+    </header>
+    <div class="grid">
+      <div class="card"><div class="emoji"><img class="pic" src="assets/img/emoji/custom/tap.svg" alt="" draggable="false"></div><div class="word"><span class="target">t</span>ap</div></div>
+      <div class="card"><div class="emoji">🛁</div><div class="word"><span class="target">t</span>ub</div></div>
+      <div class="card"><div class="emoji">🔟</div><div class="word"><span class="target">t</span>en</div></div>
+      <div class="card"><div class="emoji">🥫</div><div class="word"><span class="target">t</span>in</div></div>
+      <div class="card"><div class="emoji">🏷️</div><div class="word"><span class="target">t</span>ag</div></div>
+      <div class="card"><div class="emoji">📌</div><div class="word"><span class="target">t</span>ack</div></div>
+      <div class="card"><div class="emoji">✔️</div><div class="word"><span class="target">t</span>ick</div></div>
+      <div class="card"><div class="emoji">👚</div><div class="word"><span class="target">t</span>op</div></div>
+      <div class="card"><div class="emoji"><img class="pic" src="assets/img/emoji/custom/tum.svg" alt="" draggable="false"></div><div class="word"><span class="target">t</span>um</div></div>
+    </div>
+  </section>
+
+  <section class="page">
+    <header class="sheet-header">
+      <div>
+        <h2>Initial <u>T</u> · Sheet 2</h2>
+        <div class="ipa">CVC words starting with /t/ — start with a crisp T sound</div>
+      </div>
+      <div class="example">🐸 <u>t</u>oad</div>
+    </header>
+    <div class="grid">
+      <div class="card"><div class="emoji">🐸</div><div class="word"><span class="target">t</span>oad</div></div>
+      <div class="card"><div class="emoji">🦷</div><div class="word"><span class="target">t</span>ooth</div></div>
+      <div class="card"><div class="emoji">🔧</div><div class="word"><span class="target">t</span>ool</div></div>
+      <div class="card"><div class="emoji">🔦</div><div class="word"><span class="target">t</span>orch</div></div>
+      <div class="card"><div class="emoji">⏰</div><div class="word"><span class="target">t</span>ime</div></div>
+      <div class="card"><div class="emoji">🗣️</div><div class="word"><span class="target">t</span>alk</div></div>
+      <div class="card"><div class="emoji">👥</div><div class="word"><span class="target">t</span>eam</div></div>
+      <div class="card"><div class="emoji">🦶</div><div class="word"><span class="target">t</span>oes</div></div>
+      <div class="card"><div class="emoji">🛌</div><div class="word"><span class="target">t</span>uck</div></div>
+    </div>
+  </section>
+
+  <!-- Yapla mark — prints in the page footer -->
+  <div class="print-brand" aria-hidden="true">
+    <svg class="mark" viewBox="0 0 64 64" width="15" height="15">
+      <rect class="mk-bubble" x="6" y="6" width="52" height="40" rx="14"></rect>
+      <rect class="mk-tile1" x="15" y="14" width="14" height="24" rx="4.5"></rect>
+      <rect class="mk-tile2" x="34" y="14" width="14" height="24" rx="4.5"></rect>
+    </svg>
+    <span class="wm">© 2026 Yapla</span>
+    <span class="credit">· All rights reserved · Pictures: Fluent Emoji © Microsoft, MIT licence</span>
+  </div>
+  <script src="assets/js/pics.js"></script>
+</body>
+</html>
